@@ -1,0 +1,12 @@
+version: '3'
+services:
+    logstash-elk:
+     image: docker.elastic.co/logstash/logstash-oss:6.4.2
+     volumes:
+      - ./logstash.conf:/usr/share/logstash/pipeline/logstash.conf:ro
+     ports:
+      - "5044:5044"
+      - "5000:5000"
+      - "9600:9600"
+     environment:
+      LS_JAVA_OPTS: "-Xmx256m -Xms256m"
