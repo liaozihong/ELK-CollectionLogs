@@ -1,0 +1,22 @@
+filebeat:
+  inputs:
+  - type: log
+    # 开启监视，不开不采集
+    enable: true
+    paths:  # 采集日志的路径这里是容器内的path
+    - /var/log/elkTest/error/*.log
+    # 日志多行合并采集
+    multiline.pattern: '^\['
+    multiline.negate: true
+    multiline.match: after
+    # 为每个项目标识,或者分组，可区分不同格式的日志
+    tags: ["java-logs"]
+    # 这个文件记录日志读取的位置，如果容器重启，可以从记录的位置开始取日志
+    registry_file: /usr/share/filebeat/data/registry
+
+output:
+    elasticsearch:  # 我这里是输出到elasticsearch，也可以输出到logstash
+      #    index: "logs-test"  #  kibana中的索引
+      hosts: ["120.79.58.138:9200"] # elasticsearch地址
+      pipelines:
+        - pipeline: "Spring-logs"

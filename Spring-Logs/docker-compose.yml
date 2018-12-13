@@ -9,6 +9,6 @@ services:
   filebest-logs:
     image: docker.elastic.co/beats/filebeat:6.5.1
     volumes:
-    - "E:/javaEEProject/Project/Spring-Logs/filebeat/filebeat.yml:/usr/share/filebeat/filebeat.yml"
+    - "E:/javaEEProject/Project/Spring-Logs/filebeat/filebeat-logstash.yml:/usr/share/filebeat/filebeat.yml"
     - "E:/var/log:/var/log"
     - "E:/javaEEProject/Project/Spring-Logs/filebeat/registry:/usr/share/filebeat/data/registry"

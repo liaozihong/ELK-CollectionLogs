@@ -1,0 +1,13 @@
+{
+    "description" : "describe pipeline",
+    "processors" : [
+        {
+            "grok": {
+              "field": "message",
+              "patterns": ["\\[(?<date>.*)\\]\\[(?<level>[A-Z]{4,5})\\]\\[(?<thread>[A-Za-z0-9/-]{4,70})\\]\\[(?<class>[A-Za-z0-9/.]{4,40})\\]\\[(?<msg>[\\s\\S]*)"]
+            },"remove": {
+              "field": "message"
+            }
+        }
+    ]
+}
