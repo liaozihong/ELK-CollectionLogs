@@ -1,6 +1,7 @@
-﻿## 使用Filebeat结合Es的Ingest Node 摄取我想要的日志
 
 ### 摄取节点 - Ingest Node
+使用Elasticsearch进行输出时，可以将Filebeat配置为使用 摄取节点在Elasticsearch中进行实际索引之前预处理文档。当您想对数据进行一些额外处理时，摄取节点是一个方便的处理选项，但您不需要Logstash的全部功能。例如，您可以在Elasticsearch中创建一个摄取节点管道，该管道由一个处理器组成，该处理器删除文档中的字段，然后是另一个重命名字段的处理器。    
+
 使用elasticsearch自带的节点筛选日志，默认ingest node是启动着的。  
 可使用 http请求添加ingest的pipeline 规则，例如：  
 添加一个Spring-logs名为pipeline 的管道规则：  
@@ -36,8 +37,8 @@ curl http://127.0.0.1:9200/_ingest/pipeline
 node.ingest: true
 ```
 
-配置无误后，更改filebeat：  
-让它输出到自定义的pipeline：  
+在Elasticsearch中定义管道之后，只需配置Filebeat即可使用管道。要配置Filebeat，请在文件中的parameters选项下指定管道ID。    
+让它输出到自定义的pipeline：    
 ```
 filebeat:
   prospectors:
@@ -68,10 +69,11 @@ output:
 ### 效果展示
 ![](https://ws1.sinaimg.cn/large/006mOQRagy1fxjauepxyaj31h90h7gpd.jpg)  
 
-测试项目以上传到github  
+测试项目和Ingest Node 配置以及结合Logstash的测试例子以上传到github  
 地址： https://github.com/liaozihong/ELK-CollectionLogs  
 
 参考：  
 [Grok Debugger](http://grokdebug.herokuapp.com/)  
 [Filebeat官方文档](https://www.elastic.co/guide/en/beats/filebeat/6.x/index.html)    
-[Filebeat-Ingest Node](https://www.elastic.co/guide/en/beats/filebeat/6.5/configuring-ingest-node.html)
+[Filebeat-Ingest Node](https://www.elastic.co/guide/en/beats/filebeat/6.5/configuring-ingest-node.html)  
+[Ingest Node](https://www.elastic.co/guide/en/elasticsearch/reference/6.5/ingest.html)
