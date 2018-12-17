@@ -57,7 +57,7 @@ filebeat:
     
 output:
     elasticsearch:  # 我这里是输出到elasticsearch，也可以输出到logstash
-      hosts: ["120.79.58.138:9200"] # elasticsearch地址
+      hosts: ["127.0.0.1:9200"] # elasticsearch地址
       pipelines:
         - pipeline: "Spring-logs"
 ```
